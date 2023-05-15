@@ -12,7 +12,7 @@ def rook_movement():
             rook[1] += movement[0]
         total_moves += abs(movement[0])
     distance = abs(rook[0]) + abs(rook[1])
-    print(f"The Rook has traveled a distance of {total_moves} spaces and is {distance} spaces away from its starting point")
+    return f"The Rook has traveled a distance of {total_moves} spaces and is {distance} spaces away from its starting point"
 
 def print_menu():
     operator = 1
@@ -43,4 +43,4 @@ def print_menu():
     return [int(moves) * operator, axis]
 
 if __name__ == "__main__":
-    rook_movement()
+    print( rook_movement() )
