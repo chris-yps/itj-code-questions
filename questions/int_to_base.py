@@ -18,4 +18,5 @@ def base_converter_input():
     b = int(input())
     return number_to_base(x, b)
 
-print(base_converter_input())
+if __name__ == "__main__":
+    print(base_converter_input())
