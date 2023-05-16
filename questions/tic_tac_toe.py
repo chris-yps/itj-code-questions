@@ -1,5 +1,12 @@
-# Function to print Tic Tac Toe
 def print_tic_tac_toe(values):
+    """
+    Prints board with the provided values for the current game state
+
+    Parameters
+    ------------------------------
+    values: list
+        Values to represent the game state, 'x', 'o' and ' '
+    """
     print("\n")
     print("\t     |     |")
     print("\t  {}  |  {}  |  {}".format(values[0], values[1], values[2]))
@@ -16,8 +23,15 @@ def print_tic_tac_toe(values):
     print("\n")
 
 
-# Function to print the score-board
 def print_scoreboard(score_board):
+    """
+    Prints scoreboard
+
+    Parameters
+    ------------------------------
+    score_board: dict
+        dictionary containing the players information relevant to the score board
+    """
     print("\t--------------------------------")
     print("\t              SCOREBOARD       ")
     print("\t--------------------------------")
@@ -28,41 +42,74 @@ def print_scoreboard(score_board):
 
     print("\t--------------------------------\n")
 
-# Function to check if any player has won
 def check_win(player_pos, cur_player):
+    """
+    Checks if any of the players fulfills the defined conditions to win.
+    Compares the positions of the current player moves to the possible win conditions
 
-    # All possible winning combinations
+    Parameters
+    ------------------------------
+    player_pos: dict
+        dictionary containing the players positions
+    cur_player:
+        Player to check the win condition
+
+    Returns
+    ------------------------------
+    bool:
+        True if the current player wins, False if the win condition has not been met
+    """
+
     soln = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 4, 7], [2, 5, 8], [3, 6, 9], [1, 5, 9], [3, 5, 7]]
 
-    # Loop to check if any winning combination is satisfied
     for x in soln:
         if all(y in player_pos[cur_player] for y in x):
 
-            # Return True if any winning combination satisfies
             return True
-    # Return False if no combination is satisfied
     return False
 
-# Function to check if the game is drawn
 def check_draw(player_pos):
+    """
+    Checks if the game results in a draw.
+    A game can result in a draw if the whole board is filled with no player meeting the win condition.
+
+    Parameters
+    ------------------------------
+    player_pos: dict
+        dictionary containing the players positions
+
+    Returns
+    ------------------------------
+    bool:
+        True if the game results in a draw, False if not
+    """
     if len(player_pos['X']) + len(player_pos['O']) == 9:
         return True
     return False
 
-# Function for a single game of Tic Tac Toe
 def single_game(cur_player):
+    """
+    Executes a game until there's a winer or draw.
+    User input for each move.
 
-    # Represents the Tic Tac Toe
+    Parameters
+    ------------------------------
+    cur_player: str
+        Element indicating character to use in the board
+
+    Returns
+    ------------------------------
+    str:
+        Returns the winning player represented by 'X' or 'Y' or 'D' if there's a draw
+    """
+
     values = [' ' for x in range(9)]
 
-    # Stores the positions occupied by X and O
     player_pos = {'X':[], 'O':[]}
 
-    # Game Loop for a single game of Tic Tac Toe
     while True:
         print_tic_tac_toe(values)
 
-        # Try exception block for MOVE input
         try:
             print("Player ", cur_player, " turn. Which box? : ", end="")
             move = int(input())
@@ -70,39 +117,31 @@ def single_game(cur_player):
             print("Wrong Input!!! Try Again")
             continue
 
-        # Sanity check for MOVE inout
         if move < 1 or move > 9:
             print("Wrong Input!!! Try Again")
             continue
 
-        # Check if the box is not occupied already
         if values[move-1] != ' ':
             print("Place already filled. Try again!!")
             continue
 
-        # Update game information
 
-        # Updating grid status
         values[move-1] = cur_player
 
-        # Updating player positions
         player_pos[cur_player].append(move)
 
-        # Function call for checking win
         if check_win(player_pos, cur_player):
             print_tic_tac_toe(values)
             print("Player ", cur_player, " has won the game!!")
             print("\n")
             return cur_player
 
-        # Function call for checking draw game
         if check_draw(player_pos):
             print_tic_tac_toe(values)
             print("Game Drawn")
             print("\n")
             return 'D'
 
-        # Switch player moves
         if cur_player == 'X':
             cur_player = 'O'
         else:
@@ -118,37 +157,28 @@ if __name__ == "__main__":
     player2 = input("Enter the name : ")
     print("\n")
 
-    # Stores the player who chooses X and O
     cur_player = player1
 
-    # Stores the choice of players
     player_choice = {'X' : "", 'O' : ""}
 
-    # Stores the options
     options = ['X', 'O']
 
-    # Stores the scoreboard
     score_board = {player1: 0, player2: 0}
     print_scoreboard(score_board)
 
-    # Game Loop for a series of Tic Tac Toe
-    # The loop runs until the players quit
     while True:
 
-        # Player choice Menu
         print("Turn to choose for", cur_player)
         print("Enter 1 for X")
         print("Enter 2 for O")
         print("Enter 3 to Quit")
 
-        # Try exception for CHOICE input
         try:
             choice = int(input())
         except ValueError:
             print("Wrong Input!!! Try Again\n")
             continue
 
-        # Conditions for player choice
         if choice == 1:
             player_choice['X'] = cur_player
             if cur_player == player1:
@@ -171,16 +201,13 @@ if __name__ == "__main__":
         else:
             print("Wrong Choice!!!! Try Again\n")
 
-        # Stores the winner in a single game of Tic Tac Toe
         winner = single_game(options[choice-1])
 
-        # Edits the scoreboard according to the winner
         if winner != 'D' :
             player_won = player_choice[winner]
             score_board[player_won] = score_board[player_won] + 1
 
         print_scoreboard(score_board)
-        # Switch player who chooses X or O
         if cur_player == player1:
             cur_player = player2
         else:

@@ -1,4 +1,19 @@
 def number_to_base(x, b):
+    """
+    Converts a provided number to a number in the provided base
+
+    Parameters
+    ------------------------------
+    x: int
+        Number to convert
+    b: int
+        Base to convert the number
+
+    Returns
+    ------------------------------
+    str
+        Result of conversion represented as a string
+    """
     if x == 0:
         return "0"
     digits = list()
@@ -12,6 +27,14 @@ def number_to_base(x, b):
     return num_str
 
 def base_converter_input():
+    """
+    Receives the user input for the number converter
+
+    Returns
+    ------------------------------
+    str
+        Result of conversion represented as a string after calling the number_to_base  function
+    """
     print("Insert number: ")
     x = int(input())
     print("Insert base: ")

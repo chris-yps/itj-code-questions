@@ -1,4 +1,12 @@
 def rook_movement():
+    """
+    Makes the calculations of the total of spaces moved and the total distance from the start
+
+    Returns
+    ------------------------------
+    str:
+        String describing the number of moves and the distance from the start position
+    """
     rook = [0, 0]
     total_moves = 0
 
@@ -15,6 +23,14 @@ def rook_movement():
     return f"The Rook has traveled a distance of {total_moves} spaces and is {distance} spaces away from its starting point"
 
 def print_menu():
+    """
+    Prints the menu for the user to make a move
+
+    Returns
+    ------------------------------
+    list:
+        List with the number of spaces the rook will move and the axis of the movement
+    """
     operator = 1
 
     print("Choose a direction:")
